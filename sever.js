@@ -15,8 +15,15 @@ const userRoutes = require('./routes/userRoutes');
 app.use(express.json());
 app.use(cors());
 
+//heroku
+const path = require('path');
 
+app.use(express.static(path.join(__dirname, 'build')));
 
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'build', 'index.html'));
+});
+//heroku
 // Test endpoint to check if server is working
 app.get("/", (req, res) => {
   res.send("Server working");
